@@ -26,13 +26,19 @@ public class MortgageController
 	@Autowired
 	UserService userService;
 	
+	/**
+	 * This method is used to fetch Loan Offers depend on User Information
+	 * @param userDTO to get UserDTO Object
+	 * @return ResponseEntity<?> This returns List of Offers or Error Message and status code
+	 * @exception UserDataNotValidException / UserNotEligibleException on input error
+	 */
 	@PostMapping("/Offers")
-	public ResponseEntity<?> calculateLoanOffers(@RequestBody UserDTO userDTO) throws Exception
+	public ResponseEntity<?> calculateLoanOffers(@RequestBody UserDTO userDTO)
 	{
-		
 		List<LoanOffer> offerList = null;
 		try 
 		{
+			
 			validateUserData(userDTO);
 			User user = userService.mappingUser(userDTO);
 			offerList = userService.calculateLoanOffers(user);
@@ -42,12 +48,19 @@ public class MortgageController
 		{
 			return new ResponseEntity<String>("Invalid Data : "+e.getMessage(),HttpStatus.BAD_REQUEST);
 		}
-		
+		catch(Exception e)
+		{
+			return new ResponseEntity<String>("Sorry ! : "+e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+		}
 		
 		return new ResponseEntity<List<LoanOffer>>(offerList, HttpStatus.OK);
-		
 	}
 
+	/**
+	 * This method is used to validate the user
+	 * @param user to get user information
+	 * @exception UserDataNotValidException / UserNotEligibleException on input error
+	 */
 	private void validateUserData(UserDTO user) throws UserDataNotValidException, UserNotEligibleException 
 	{
 		if(StringUtils.isEmpty(user.getUserName()))

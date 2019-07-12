@@ -46,8 +46,6 @@ public class UserDTO {
 	@NotNull@NotBlank
 	private Double propertyArea;
 
-
-
 	public String getUserName() {
 		return userName;
 	}
@@ -135,6 +133,6 @@ public class UserDTO {
 	public void setPropertyArea(Double propertyArea) {
 		this.propertyArea = propertyArea;
 	}
-	
 
+	
 }

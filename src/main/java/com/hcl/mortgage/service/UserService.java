@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 
 import com.hcl.mortgage.entity.LoanOffer;
 import com.hcl.mortgage.entity.User;
@@ -27,6 +26,11 @@ public class UserService
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * This method is used to mapped UserDTO to User
+	 * @param userDTO to get UserDTO object
+	 * @return User This return User object
+	 */
 	public User mappingUser(UserDTO userDTO)
 	{
 		User user = new User();
@@ -35,6 +39,12 @@ public class UserService
 		
 	}
 
+	/**
+	 * This method is used to fetch Loan Offers depend on User Information
+	 * @param user to get User Object
+	 * @return List<LoanOffer> This returns List of Offers
+	 * @exception UserDataNotValidException / UserNotEligibleException / Exception on input error
+	 */
 	public List<LoanOffer> calculateLoanOffers(User user) throws UserDataNotValidException, UserNotEligibleException, Exception
 	{
 		List<LoanOffer> listOfLoanOffers = null;
