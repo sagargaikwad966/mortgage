@@ -69,4 +69,11 @@ public class LoanOffer
 		this.emi = emi;
 	}
 
+	@Override
+	public String toString() {
+		return "LoanOffer [offerId=" + offerId + ", loanAmount=" + loanAmount + ", tenure=" + tenure + ", roi=" + roi
+				+ ", emi=" + emi + "]";
+	}
+	
+
 }

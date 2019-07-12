@@ -16,6 +16,7 @@ import com.hcl.mortgage.entity.User;
 import com.hcl.mortgage.exception.UserDataNotValidException;
 import com.hcl.mortgage.exception.UserNotEligibleException;
 import com.hcl.mortgage.model.UserDTO;
+import com.hcl.mortgage.service.NotificationService;
 import com.hcl.mortgage.service.UserService;
 import com.hcl.mortgage.utility.UserUtils;
 
@@ -25,6 +26,9 @@ public class MortgageController
 {
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	NotificationService notificationService;
 	
 	/**
 	 * This method is used to fetch Loan Offers depend on User Information
@@ -42,6 +46,8 @@ public class MortgageController
 			validateUserData(userDTO);
 			User user = userService.mappingUser(userDTO);
 			offerList = userService.calculateLoanOffers(user);
+			
+			notificationService.sendOffersMail(user.getEmail(), UserUtils.getString(offerList)); 
 			
 		} 
 		catch (UserDataNotValidException | UserNotEligibleException  e) 

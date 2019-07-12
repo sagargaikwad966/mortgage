@@ -11,14 +11,14 @@ import org.hibernate.validator.constraints.Length;
 
 public class UserDTO {
 	
-	@NotNull@NotBlank
+	@NotNull
 	private String userName;
 	
-	@NotNull@NotBlank
+	@NotNull
 	@Length(min = 10, max = 10)
 	private String phone;
 	
-	@NotNull@NotBlank
+	@NotNull
 	private LocalDate dob;
 	
 	@NotNull@NotBlank
